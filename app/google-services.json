@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "223584939365",
+    "project_id": "fandoa-1a628",
+    "storage_bucket": "fandoa-1a628.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223584939365:android:8c839fb121402e93b8c58c",
+        "android_client_info": {
+          "package_name": "mg.sitraka.fandoa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223584939365-ubov9g90qo4ihfdphkmoskrjv8ci9aih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mg.sitraka.fandoa",
+            "certificate_hash": "3f0967501b58350640f0880ea961433ce2fdace4"
+          }
+        },
+        {
+          "client_id": "223584939365-jmqr69scqjmuc2se2s9qapdqqpm66ruu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4iBgSXVFKQQ77jHohVQw59VbPO2aHaEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223584939365-jmqr69scqjmuc2se2s9qapdqqpm66ruu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
