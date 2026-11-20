@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, androidx.compose.foundation.ExperimentalFoundationApi::class)
 
 package mg.sitraka.fandoa
 
@@ -90,7 +90,7 @@ fun Shell(vm: MainVM, act: MainActivity) {
         }
     ) { pad ->
         HorizontalPager(
-            state = pager, beyondViewportPageCount = 2,
+            state = pager, beyondBoundsPageCount = 2,
             modifier = Modifier.padding(pad).fillMaxSize()
         ) { page ->
             when (page) {
