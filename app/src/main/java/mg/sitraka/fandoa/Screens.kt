@@ -34,6 +34,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.util.Calendar
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
 private const val HOUR = 3_600_000L
 private const val DAY = 86_400_000L
@@ -43,7 +46,9 @@ fun Shell(vm: MainVM, act: MainActivity) {
     val user by vm.user.collectAsState()
     val payments by vm.payments.collectAsState()
     val people by vm.people.collectAsState()
-    var tab by rememberSaveable { mutableIntStateOf(0) }
+    val pager = rememberPagerState(pageCount = { 3 })
+    val scope = rememberCoroutineScope()
+    val tab = pager.currentPage
     var formPayment by remember { mutableStateOf<Payment?>(null) }
     var formPerson by remember { mutableStateOf<Person?>(null) }
     var detailId by remember { mutableStateOf<String?>(null) }
@@ -63,11 +68,11 @@ fun Shell(vm: MainVM, act: MainActivity) {
         },
         bottomBar = {
             NavigationBar {
-                NavigationBarItem(selected = tab == 0, onClick = { tab = 0 },
+                NavigationBarItem(selected = tab == 0, onClick = { scope.launch { pager.animateScrollToPage(0) } },
                     icon = { Icon(Icons.Default.Payments, null) }, label = { Text("Paiements") })
-                NavigationBarItem(selected = tab == 1, onClick = { tab = 1 },
+                NavigationBarItem(selected = tab == 1, onClick = { scope.launch { pager.animateScrollToPage(1) } },
                     icon = { Icon(Icons.Default.People, null) }, label = { Text("Personnel") })
-                NavigationBarItem(selected = tab == 2, onClick = { tab = 2 },
+                NavigationBarItem(selected = tab == 2, onClick = { scope.launch { pager.animateScrollToPage(2) } },
                     icon = { Icon(Icons.Default.Settings, null) }, label = { Text("Réglages") })
             }
         },
@@ -84,8 +89,11 @@ fun Shell(vm: MainVM, act: MainActivity) {
             }
         }
     ) { pad ->
-        Box(Modifier.padding(pad).fillMaxSize()) {
-            when (tab) {
+        HorizontalPager(
+            state = pager, beyondViewportPageCount = 2,
+            modifier = Modifier.padding(pad).fillMaxSize()
+        ) { page ->
+            when (page) {
                 0 -> HomeTab(payments) { detailId = it.id }
                 1 -> PeopleTab(people, payments,
                     onEdit = { formPerson = it },
@@ -757,7 +765,7 @@ fun SettingsTab(act: MainActivity, vm: MainVM, user: com.google.firebase.auth.Fi
         }
 
         Text(
-            "Fandoa 1.0", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            "Fandoa 1.1", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.fillMaxWidth(), textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
     }
